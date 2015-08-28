@@ -15,4 +15,9 @@ router.get('/', function(req, res) {
   });
 });
 
+router.get('/people', function(req, res) {
+  console.log('router get people');
+  res.send("[{'name': 'Bonny','age': 100},{'name': 'Patty','age': 33}]");
+});
+
 module.exports = router;

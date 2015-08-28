@@ -13,7 +13,7 @@ var gulp       = require('gulp'),
 
 // npm run dev
 gulp.task('dev', function() {
-  doBrowserify(false);
+  doBrowserify(true);
   compileLess();
   livereload.listen();
   nodemon({
@@ -22,9 +22,9 @@ gulp.task('dev', function() {
     ignore: ['public', 'gulpfile.js'],
     env: { 'NODE_ENV': 'development' }
   }).on('restart', function() {
-    doBrowserify(false);
-    compileLess();
-    restart();
+    //compileLess();
+    //doBrowserify(false);
+    //restart();
   });
 });
 
@@ -33,6 +33,11 @@ function restart() {
     .pipe(livereload())
     .pipe(notify('Reloading page, please wait...'));
 }
+
+// npm run bWatch
+gulp.task('bWatch', function() {
+  doBrowserify(true);
+});
 
 function doBrowserify(watch) {
   var b = browserify({
@@ -44,6 +49,7 @@ function doBrowserify(watch) {
     b = watchify(b);
     b.on('update', function() {
       build(b);
+      restart();
     });
   }
 
