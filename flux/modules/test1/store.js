@@ -12,13 +12,19 @@ var Person = Backbone.Model.extend({
 var People = Backbone.Collection.extend({
   model: Person,
   url: '/people',
+  parse: function(response) {
+    console.log('parse');
+    console.log(response);
+    //return JSON.parse(response.responseText);
+    return response;
+  },
   initialize: function() {
     AppDispatcher.register(function(payload) {
       var action = payload.action;
       switch(action.actionType) {
         case appConstants.CONSTANT_1:
-          p1.set({ name: action.data.name });
           doFetch();
+          //p1.set({ name: action.data.name });
           break;
         default:
           return true;
@@ -36,28 +42,30 @@ Store.add(p1);
 Store.add(p2);
 
 var doFetch = function() {
-  try {
-    Store.fetch({
-      success: fetchSuccess,
-      error: fetchFail
-    });
-  } catch(err) {
-    console.log('error');
-    console.log(err);
-  }
-  console.log(Store);
+  console.log('Store.models');
+  console.log(Store.models);
+  Store.fetch({
+    success: fetchSuccess,
+    error: fetchFail
+  });
+  //console.log('Store.models');
+  //console.log(Store.models);
 }
 var fetchSuccess = function(collection, response) {
   console.log('success');
+  //console.log('collection');
   console.log(collection);
+  //console.log('response');
   console.log(response);
-  console.log(JSON.parse(response.responeText));
+  //console.log(JSON.parse(response.responeText));
 }
 var fetchFail = function(collection, response) {
   console.log('fail');
+  //console.log('collection');
   console.log(collection);
+  //console.log('response');
   console.log(response);
-  console.log(JSON.parse(response.responeText));
+  //console.log(JSON.parse(response.responeText));
 }
 
 module.exports = Store;

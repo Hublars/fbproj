@@ -24,11 +24,14 @@ var ControlView = React.createClass({
     console.log(store.at(0).get('name'));
   },
 
+  tryColl: function() {
+    //<h2>name: {this.props.coll.at(0).get('name')}</h2>
+  },
+
   render: function() {
     return (
       <div>
         <h1>{this.props.label}</h1>
-        <h2>name: {this.props.coll.at(0).get('name')}</h2>
         <button onClick={this.func1}>Change name</button>
         <button onClick={this.logStore}>Log store</button>
         <People people={store} />

@@ -17,7 +17,16 @@ router.get('/', function(req, res) {
 
 router.get('/people', function(req, res) {
   console.log('router get people');
-  res.send("[{'name': 'Bonny','age': 100},{'name': 'Patty','age': 33}]");
+  /*res.writeHead(200, {
+    'Content-Type': 'text/json'
+  });*/
+  var arr = [ { 'name': 'Bonny', 'age': 100 }, { 'name': 'Patty', 'age': 33 } ];
+  //res.write(JSON.stringify(arr));
+  //res.write("[{'name': 'Bonny','age': 100},{'name': 'Patty','age': 33}]");
+  //res.end();
+  //res.send("[{'name': 'Bonny','age': 100},{'name': 'Patty','age': 33}]");
+  //var obj = [{ 'name': 'Shazzy','age': 99 }];
+  res.send(JSON.stringify(arr));
 });
 
 module.exports = router;
