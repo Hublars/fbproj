@@ -16,8 +16,12 @@ var ControlView = React.createClass({
     React.PureRenderMixin
   ],
 
-  func1: function() {
-    actions.action_1({ name: 'Ricky' });
+  fetchCollection: function() {
+    actions.action_collection({ name: 'Ricky' });
+  },
+
+  fetchModel: function() {
+    actions.action_model({ name: 'Ricky' });
   },
 
   logStore: function() {
@@ -32,7 +36,8 @@ var ControlView = React.createClass({
     return (
       <div>
         <h1>{this.props.label}</h1>
-        <button onClick={this.func1}>Change name</button>
+        <button onClick={this.fetchCollection}>Fetch collection</button>
+        <button onClick={this.fetchModel}>Fetch model</button>
         <button onClick={this.logStore}>Log store</button>
         <People people={store} />
       </div>

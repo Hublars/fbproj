@@ -1,5 +1,6 @@
 var constants = {
-  CONSTANT_1: 'CONSTANT_1'
+  FETCH_COLLECTION: 'FETCH_COLLECTION',
+  FETCH_MODEL: 'FETCH_MODEL'
 }
 
 module.exports = constants;

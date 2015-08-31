@@ -2,10 +2,15 @@ var AppDispatcher = require('../../AppDispatcher'),
     appConstants  = require('../../appConstants');
 
 var actions = {
-  action_1: function(item) {
-    //console.log('actions functions');
+  action_collection: function(item) {
     AppDispatcher.handleViewAction({
-      actionType: appConstants.CONSTANT_1,
+      actionType: appConstants.FETCH_COLLECTION,
+      data: item
+    });
+  },
+  action_model: function(item) {
+    AppDispatcher.handleViewAction({
+      actionType: appConstants.FETCH_MODEL,
       data: item
     });
   }
