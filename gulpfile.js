@@ -6,16 +6,16 @@ var gulp       = require('gulp'),
     glob       = require('glob'),
     concat     = require('gulp-concat'),
     less       = require('gulp-less'),
-    watch      = require('gulp-watch'),
+    gulpwatch      = require('gulp-watch'),
     livereload = require('gulp-livereload'),
     nodemon    = require('gulp-nodemon'),
     notify     = require('gulp-notify');
 
 // npm run dev
 gulp.task('dev', function() {
-  doBrowserify(true);
-  compileLess();
   livereload.listen();
+  doBrowserify(true);
+  compileLess(true);
   nodemon({
     script: 'web.js',
     ext: 'js less hbs',
@@ -36,6 +36,7 @@ function restart() {
 
 // npm run bWatch
 gulp.task('bWatch', function() {
+  //livereload.listen();
   doBrowserify(true);
 });
 
@@ -65,9 +66,24 @@ function build(b) {
   .pipe(gulp.dest('./public/build'));
 }
 
-function compileLess() {
+// npm run lessWatch
+gulp.task('lessWatch', function() {
+  //livereload.listen();
+  compileLess(true);
+});
+
+function compileLess(watch) {
   glob('./flux/modules/**/*.less', function(err, files) {
-      buildCSS(files);
+    gulp.src(files)
+      .pipe(gulpwatch(files))
+      .on('change', function() {
+        if (watch) {
+          buildCSS(files);
+          restart();
+        }
+      });
+
+    buildCSS(files);
   });
 }
 
@@ -75,7 +91,8 @@ function buildCSS(files) {
   return gulp.src(files)
   .pipe(less({ paths: [] }))
     .pipe(concat('style.css'))
-    .pipe(gulp.dest('./public/build'));
+    .pipe(gulp.dest('./public/build'))
+    .pipe(notify('Rebuilding less, please wait...'));
 }
 
 // npm run bNodeModules

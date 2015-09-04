@@ -13,6 +13,7 @@ var ControlView = React.createClass({
 
   mixins: [
     FluxBone.Mixin('coll'),
+    FluxBone.Mixin('coll', 'change', 'myCustomCallback'),
     React.PureRenderMixin
   ],
 
@@ -32,15 +33,19 @@ var ControlView = React.createClass({
     //<h2>name: {this.props.coll.at(0).get('name')}</h2>
   },
 
+  myCustomCallback: function() {
+    console.log('myCustomCallback');
+  },
+
   render: function() {
     return (
-      <div>
+      <section id="test1section">
         <h1>{this.props.label}</h1>
         <button onClick={this.fetchCollection}>Fetch collection</button>
         <button onClick={this.fetchModel}>Fetch model</button>
         <button onClick={this.logStore}>Log store</button>
         <People people={store} />
-      </div>
+      </section>
     );
   }
 });

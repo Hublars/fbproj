@@ -6,7 +6,8 @@
     "start": "node web",
     "dev": "gulp dev",
     "bNodeModules": "gulp browserifyNodeModules",
-    "bWatch": "gulp bWatch"
+    "bWatch": "gulp bWatch",
+    "lessWatch": "gulp lessWatch"
   },
   "dependencies": {
     "backbone": "^1.2.2",
