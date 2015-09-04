@@ -22,9 +22,7 @@ gulp.task('dev', function() {
     ignore: ['public', 'gulpfile.js'],
     env: { 'NODE_ENV': 'development' }
   }).on('restart', function() {
-    //compileLess();
-    //doBrowserify(false);
-    //restart();
+    // nothing happening here
   });
 });
 
@@ -33,12 +31,6 @@ function restart() {
     .pipe(livereload())
     .pipe(notify('Reloading page, please wait...'));
 }
-
-// npm run bWatch
-gulp.task('bWatch', function() {
-  //livereload.listen();
-  doBrowserify(true);
-});
 
 function doBrowserify(watch) {
   var b = browserify({
@@ -65,12 +57,6 @@ function build(b) {
   .pipe(source('bundle.js'))
   .pipe(gulp.dest('./public/build'));
 }
-
-// npm run lessWatch
-gulp.task('lessWatch', function() {
-  //livereload.listen();
-  compileLess(true);
-});
 
 function compileLess(watch) {
   glob('./flux/modules/**/*.less', function(err, files) {
